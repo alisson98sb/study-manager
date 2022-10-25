@@ -1,4 +1,5 @@
 import React from 'react';
+import Item from './item';
 import style from './list.module.scss';
 
 function List() {
@@ -17,12 +18,11 @@ function List() {
             <h2></h2>
             <ul>
                 {matter.map((item, index)=>(
-                    <li className={style.item} key={index}>
-                        { /* nome da materia */} 
-                        <h3>{item.name}</h3>
-                        {/*Tempo da materia 00:00:00 */ }
-                        <span>{item.time}</span>
-                    </li>
+                    <Item 
+                        key={index}
+                        /*Desestruturando o item, cuidado pois ao fazer isso voce passa todos os elementos que item possui, imagina item sendo um objeto vindo de uma api, nesse caso nao seria uma boa;*/
+                        {...item}
+                    />
                 ))}
             </ul>
         </aside>
