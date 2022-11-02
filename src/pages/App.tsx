@@ -17,6 +17,24 @@ function App() {
     })))
   }
 
+  function finishedMatter() {
+    if (selected) {
+      setSelected(undefined);
+      setMatter(lastMatter =>
+        lastMatter.map(matter => {
+        if (matter.uuid === selected.uuid) {
+          return {
+            ...matter,
+            selected: false,
+            completed: true
+          }
+        }
+        return matter;
+      
+      }))
+    }
+  }
+
   return (
     <div className={style.AppStyle}>
       <Form setMatter={setMatter}/>
@@ -26,6 +44,7 @@ function App() {
       />
       <Stopwatch 
         selected = {selected}
+        finishedMatter = {finishedMatter}
       />
     </div>
   );
