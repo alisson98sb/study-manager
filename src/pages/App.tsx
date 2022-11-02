@@ -6,12 +6,27 @@ import { IMatter } from '../types/IMatter';
 import style from './style.module.scss';
 
 function App() {
-  const [matter, setMatter] = useState<IMatter[] | []>([]);
+  const [matter, setMatter] = useState<IMatter[]>([]);
+  const [selected, setSelected] = useState<IMatter>();
+
+  function selectMatter(selectedMatter: IMatter) {
+    setSelected(selectedMatter);
+    setMatter(lastMatter => lastMatter.map(matter => ({
+      ...matter,
+      selected: matter.uuid === selectedMatter.uuid ? true : false
+    })))
+  }
+
   return (
     <div className={style.AppStyle}>
       <Form setMatter={setMatter}/>
-      <List matterProp={matter}/>
-      <Stopwatch />
+      <List 
+        matterProp={matter}
+        selectMatter={selectMatter}
+      />
+      <Stopwatch 
+        selected = {selected}
+      />
     </div>
   );
 }
